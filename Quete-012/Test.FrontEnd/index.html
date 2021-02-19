@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Test api</h1>
+    <script>
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+
+        var myInit = {
+            method: 'GET',
+            headers: myHeaders
+        }
+
+        fetch('https://localhost:44357/api/v1/selfies', myInit)
+                 .then(response => response.json())
+                 .then(selfies => {
+                    console.info(selfies);
+                 });
+    </script>
+</body>
+</html>
