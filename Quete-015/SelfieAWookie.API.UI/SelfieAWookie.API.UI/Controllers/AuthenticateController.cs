@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using SelfieAWookie.API.UI.Application.DTOs;
@@ -24,14 +25,18 @@ namespace SelfieAWookie.API.UI.Controllers
         private readonly SecurityOption _option = null;
         private readonly UserManager<IdentityUser> _userManager = null;
         private readonly IConfiguration _configuration = null;
+        private ILogger<AuthenticateController> _logger = null;
         #endregion
 
         #region Constructors
-        public AuthenticateController(UserManager<IdentityUser> userManager, IConfiguration configuration, IOptions<SecurityOption> options)
+        public AuthenticateController(ILogger<AuthenticateController> logger, UserManager<IdentityUser> userManager, IConfiguration configuration, IOptions<SecurityOption> options)
         {
             this._option = options.Value;
             this._userManager = userManager;
             this._configuration = configuration;
+            this._logger = logger;
+
+            this._logger.LogDebug("Test log");
         }
         #endregion
 
@@ -57,26 +62,39 @@ namespace SelfieAWookie.API.UI.Controllers
         }
 
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Login([FromBody] AuthenticateUserDto dtoUser)
         {
             IActionResult result = this.BadRequest();
 
-            var user = await this._userManager.FindByEmailAsync(dtoUser.Login);
-            if (user != null)
+            try
             {
-                var verif = await this._userManager.CheckPasswordAsync(user, dtoUser.Password);
-                if (verif)
-                {
+                // throw new Exception();
 
-                    result = this.Ok(new AuthenticateUserDto()
+                var user = await this._userManager.FindByEmailAsync(dtoUser.Login);
+                if (user != null)
+                {
+                    var verif = await this._userManager.CheckPasswordAsync(user, dtoUser.Password);
+                    if (verif)
                     {
-                        Login = user.Email,
-                        Name = user.UserName,
-                        Token = this.GenerateJwtToken(user)
-                    });
+
+                        result = this.Ok(new AuthenticateUserDto()
+                        {
+                            Login = user.Email,
+                            Name = user.UserName,
+                            Token = this.GenerateJwtToken(user)
+                        });
+                    }
                 }
             }
-
+            catch (Exception ex)
+            {
+                this._logger.LogError("Login", ex, dtoUser);
+                result = this.Problem("Cannot log");
+            }
+            
             return result;
         }
         #endregion
