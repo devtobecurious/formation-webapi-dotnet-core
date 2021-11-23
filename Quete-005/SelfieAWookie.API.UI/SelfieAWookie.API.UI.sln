@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30804.86
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SelfieAWookie.API.UI", "SelfieAWookie.API.UI\SelfieAWookie.API.UI.csproj", "{0C2F8D57-2E30-429D-9FC7-4CBB4E4EAFF5}"
 EndProject
@@ -11,9 +11,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{F6D4312E
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libs", "Libs", "{CFA400D0-0E00-4372-B77E-3BAC59A5305B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SelfieAWookies.Core.Selfies.Domain", "SelfieAWookies.Core.Selfies.Domain\SelfieAWookies.Core.Selfies.Domain.csproj", "{8164245D-7ADF-479B-8F86-CC7D9650A509}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SelfieAWookies.Core.Selfies.Domain", "SelfieAWookies.Core.Selfies.Domain\SelfieAWookies.Core.Selfies.Domain.csproj", "{8164245D-7ADF-479B-8F86-CC7D9650A509}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SelfieAWookies.Core.Selfies.Infrastructures", "SelfieAWookies.Core.Selfies.Infrastructures\SelfieAWookies.Core.Selfies.Infrastructures.csproj", "{5678F794-DB71-4735-A950-7A7792FEEBB8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SelfieAWookies.Core.Selfies.Infrastructures", "SelfieAWookies.Core.Selfies.Infrastructures\SelfieAWookies.Core.Selfies.Infrastructures.csproj", "{5678F794-DB71-4735-A950-7A7792FEEBB8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SelfieAWookie.API.UI.SIX", "SelfieAWookie.API.UI.SIX\SelfieAWookie.API.UI.SIX.csproj", "{805553F4-2FAB-416E-B3C4-78699F7F70E4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,6 +39,10 @@ Global
 		{5678F794-DB71-4735-A950-7A7792FEEBB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5678F794-DB71-4735-A950-7A7792FEEBB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5678F794-DB71-4735-A950-7A7792FEEBB8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{805553F4-2FAB-416E-B3C4-78699F7F70E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{805553F4-2FAB-416E-B3C4-78699F7F70E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{805553F4-2FAB-416E-B3C4-78699F7F70E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{805553F4-2FAB-416E-B3C4-78699F7F70E4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
