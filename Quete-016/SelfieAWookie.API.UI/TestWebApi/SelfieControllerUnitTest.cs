@@ -1,3 +1,5 @@
+using MediatR;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using SelfieAWookie.API.UI.Application.DTOs;
@@ -6,6 +8,7 @@ using SelfieAWookies.Core.Selfies.Domain;
 using SelfiesAWookies.Core.Framework;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace TestWebApi
@@ -14,7 +17,7 @@ namespace TestWebApi
     {
         #region Public methods
         [Fact]
-        public void ShouldAddOneSelfie()
+        public async Task ShouldAddOneSelfie()
         {
             // ARRANGE
             SelfieDto selfie = new SelfieDto();
@@ -25,8 +28,8 @@ namespace TestWebApi
             repositoryMock.Setup(item => item.AddOne(It.IsAny<Selfie>())).Returns(new Selfie() { Id = 4 });
 
             // ACT
-            var controller = new SelfiesController(repositoryMock.Object);
-            var result = controller.AddOne(selfie);
+            var controller = new SelfiesController(new Mock<IMediator>().Object, repositoryMock.Object, new Mock<IWebHostEnvironment>().Object);
+            var result = await controller.AddOne(selfie);
 
             // ASSERT
             Assert.NotNull(result);
@@ -50,7 +53,7 @@ namespace TestWebApi
 
             repositoryMock.Setup(item => item.GetAll(It.IsAny<int>())).Returns(expectedList);
 
-            var controller = new SelfiesController(repositoryMock.Object);
+            var controller = new SelfiesController(new Mock<IMediator>().Object, repositoryMock.Object, new Mock<IWebHostEnvironment>().Object);
 
             // ACT
             var result = controller.GetAll();
