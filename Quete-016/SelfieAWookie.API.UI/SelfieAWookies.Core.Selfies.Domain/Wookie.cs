@@ -12,6 +12,8 @@ namespace SelfieAWookies.Core.Selfies.Domain
         #region Properties
         public int Id { get; set; }
 
+        public string Surname { get; set; }
+
         public List<Selfie> Selfies { get; set; }
         #endregion
     }
