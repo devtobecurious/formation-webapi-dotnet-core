@@ -62,18 +62,24 @@ namespace SelfieAWookie.API.UI
 
             app.UseMiddleware<LogRequestMiddleware>();
 
+            app.UseRouting();
+            app.UseMiddleware(typeof(CorsMiddleware));
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseCors(options => options.AllowAnyOrigin());
+            }
+            else
+            {
+                app.UseCors(SecurityMethods.DEFAULT_POLICY_2);
+                app.UseHttpsRedirection();
+                app.UseHsts();
             }
 
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "SelfieAWookie.API.UI v1"));
-
-            app.UseHttpsRedirection();
-
-            app.UseRouting();
-            app.UseCors(SecurityMethods.DEFAULT_POLICY_2);
+            
 
             app.UseAuthentication();
             app.UseAuthorization();

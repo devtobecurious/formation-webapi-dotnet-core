@@ -29,6 +29,8 @@ namespace SelfieAWookie.API.UI.ExtensionMethods
         public static void AddCustomSecurity(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddCustomCors(configuration);
+
+
             services.AddCustomAuthentication(configuration);
         }
 
@@ -73,14 +75,14 @@ namespace SelfieAWookie.API.UI.ExtensionMethods
 
                 options.AddPolicy(DEFAULT_POLICY_2, builder =>
                 {
-                    builder.WithOrigins("http://127.0.0.1:5501")
+                    builder.WithOrigins("http://127.0.0.1:4200")
                            .AllowAnyHeader()
                            .AllowAnyMethod();
                 });
 
                 options.AddPolicy(DEFAULT_POLICY_3, builder =>
                 {
-                    builder.WithOrigins("http://127.0.0.1:5502")
+                    builder.WithOrigins("http://127.0.0.1:4200")
                            .AllowAnyHeader()
                            .AllowAnyMethod();
                 });
