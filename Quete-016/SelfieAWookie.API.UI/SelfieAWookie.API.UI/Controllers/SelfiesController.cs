@@ -22,7 +22,7 @@ namespace SelfieAWookie.API.UI.Controllers
 {
     [ApiController]
     [Route("api/v1/[controller]")]
-    //[EnableCors(SecurityMethods.DEFAULT_POLICY_2)]
+    [EnableCors(SecurityMethods.DEFAULT_POLICY_2)]
     public class SelfiesController : ControllerBase
     {
         #region Fields

@@ -63,10 +63,10 @@ namespace SelfieAWookie.API.UI
             app.UseMiddleware<LogRequestMiddleware>();
 
             app.UseRouting();
-            app.UseMiddleware(typeof(CorsMiddleware));
 
             if (env.IsDevelopment())
             {
+                app.UseMiddleware(typeof(CorsMiddleware));
                 app.UseDeveloperExceptionPage();
                 app.UseCors(options => options.AllowAnyOrigin());
             }
