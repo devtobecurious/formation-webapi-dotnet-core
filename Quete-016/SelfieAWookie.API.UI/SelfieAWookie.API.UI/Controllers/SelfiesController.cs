@@ -56,7 +56,10 @@ namespace SelfieAWookie.API.UI.Controllers
             //var model = Enumerable.Range(1, 10).Select(item => new Selfie() { Id = item });
             //return this.StatusCode(StatusCodes.Status204NoContent);
 
-            var param = this.Request.Query["wookieId"];
+            if (this.Request != null)
+            {
+                var param = this.Request.Query["wookieId"];
+            }
 
             //var selfiesList = this._repository.GetAll(wookieId);
             //var model = selfiesList.Select(item => new SelfieResumeDto() { Title = item.Title, WookieId = item.Wookie.Id, NbSelfiesFromWookie = (item.Wookie?.Selfies?.Count).GetValueOrDefault(0) }).ToList();

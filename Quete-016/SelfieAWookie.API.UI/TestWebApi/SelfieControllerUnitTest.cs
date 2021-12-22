@@ -1,8 +1,11 @@
 using MediatR;
+using MediatR.Registration;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
 using Moq;
 using SelfieAWookie.API.UI.Application.DTOs;
+using SelfieAWookie.API.UI.Application.Queries;
 using SelfieAWookie.API.UI.Controllers;
 using SelfieAWookies.Core.Selfies.Domain;
 using SelfiesAWookies.Core.Framework;
@@ -53,7 +56,25 @@ namespace TestWebApi
 
             repositoryMock.Setup(item => item.GetAll(It.IsAny<int>())).Returns(expectedList);
 
-            var controller = new SelfiesController(new Mock<IMediator>().Object, repositoryMock.Object, new Mock<IWebHostEnvironment>().Object);
+            IMediator realMediator = null;
+
+            // Appel du moteur d'injection de dépendance
+            var services = new ServiceCollection();
+
+            // Injection de mediatr à la mano
+            var serviceConfig = new MediatRServiceConfiguration();
+            ServiceRegistrar.AddRequiredServices(services, serviceConfig);
+
+            // Injection tout ce qu'il faut pour le fonctionnement mediatR
+            services.AddScoped<IRequestHandler<SelectAllSelfiesQuery, List<SelfieResumeDto>>, SelectAllSelfiesHandler>();
+            services.AddSingleton(typeof(ISelfieRepository), repositoryMock.Object);
+
+            var provider = services.BuildServiceProvider();
+
+            realMediator = provider.GetRequiredService<IMediator>();
+            var service = provider.GetService<ISelfieRepository>();
+
+            var controller = new SelfiesController(realMediator, repositoryMock.Object, new Mock<IWebHostEnvironment>().Object);
 
             // ACT
             var result = controller.GetAll();
